@@ -1,4 +1,4 @@
-﻿Id,PokedexNumber,Name,BaseHealth,BaseAttack,BaseDefense,BaseSpeed
-1,1,Alien,90,60,45,80
-2,2,Birb,80,80,20,120
-3,2,Birb-H,90,70,110,40
+﻿Name,PokedexNumber,BaseHealth,BaseAttack,BaseDefense,BaseSpeed
+Alien,1,90,60,45,80
+Birb,2,80,80,20,120
+Birb-H,2,90,70,110,40
