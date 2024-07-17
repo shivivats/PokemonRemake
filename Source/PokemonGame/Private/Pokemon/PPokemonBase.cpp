@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PokemonGame/Public/Pokemon/PPokemonBase.h"
+#include "Pokemon/PPokemonBase.h"
 
-#include "PokemonGame/Public/Pokemon/PPokemonAttackComponent.h"
-#include "PokemonGame/Public/Pokemon/PPokemonAttributeComponent.h"
-#include "PokemonGame/Public/Pokemon/PPokemonBattleComponent.h"
+#include "Pokemon/PPokemonAttackComponent.h"
+#include "Pokemon/PPokemonAttributeComponent.h"
+#include "Pokemon/PPokemonBattleComponent.h"
+#include "Pokemon/PPokemonDataAsset.h"
 
 // Sets default values
 APPokemonBase::APPokemonBase()
@@ -14,10 +15,9 @@ APPokemonBase::APPokemonBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AttributeComponent = CreateDefaultSubobject<UPPokemonAttributeComponent>(TEXT("AttributeComponent"));
-
 	BattleComponent = CreateDefaultSubobject<UPPokemonBattleComponent>(TEXT("BattleComponent"));
-
 	AttackComponent = CreateDefaultSubobject<UPPokemonAttackComponent>(TEXT("AttackComponent"));
+	
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +25,24 @@ void APPokemonBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+TArray<EPokemonType> APPokemonBase::GetPokemonTypes()
+{
+	TArray<EPokemonType> Types;
+	Types.Add(PokemonDataAsset->GetType1());
+	Types.Add(PokemonDataAsset->GetType2());
+	return Types;
+}
+
+int APPokemonBase::GetPokemonLevel()
+{
+	return PokemonLevel;
+}
+
+UPPokemonDataAsset* APPokemonBase::GetPokemonDataAsset()
+{
+	return PokemonDataAsset;
 }
 
 // Called every frame

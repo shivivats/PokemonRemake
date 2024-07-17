@@ -22,32 +22,39 @@ protected:
 
 	/* Base Stats, obtained from species */
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|Stats")
-	int baseHP;
+	int BaseHealth;
 	
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|Stats")
-	int baseAttack;
+	int BaseAttack;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|Stats")
-	int baseDefense;
+	int BaseDefense;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|Stats")
-	int baseSpeed;
+	int BaseSpeed;
 
 	/* Actual Stats, change per level */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
-	int hp;
+	int Health;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
+	int MaxHealth;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
+	int MinHealth;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
-	int attack;
+	int Attack;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
-	int defense;
+	int Defense;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Stats")
-	int speed;
+	int Speed;
+	
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	int ChangeHealth(int HealthDelta);
 };

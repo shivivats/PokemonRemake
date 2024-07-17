@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EPokemonType.h"
 #include "GameFramework/Character.h"
+#include "PPokemonDataAsset.h"
 #include "PPokemonBase.generated.h"
 
 class UPPokemonBattleComponent;
 class UPPokemonAttackComponent;
 class UPPokemonAttributeComponent;
-enum EPokemonType : uint8;
 
 UCLASS()
 class POKEMONGAME_API APPokemonBase : public ACharacter
@@ -24,32 +25,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	int pokedexNum;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
+	int PokemonLevel;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	FText speciesText;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
+	float CurrentHeight;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	FText speciesDescription;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
+	float CurrentWeight;
 	
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	FName speciesName;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
-	float height;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
-	float weight;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
-	int level;
-
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	EPokemonType type1;
-	
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Pokemon|General")
-	EPokemonType type2;
+	UPPokemonDataAsset* PokemonDataAsset;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Components")
 	UPPokemonAttributeComponent* AttributeComponent;
@@ -60,6 +46,14 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Components")
 	UPPokemonBattleComponent* BattleComponent;
 
+public:
+
+	TArray<EPokemonType> GetPokemonTypes();
+
+	int GetPokemonLevel();
+
+	UPPokemonDataAsset* GetPokemonDataAsset();
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
