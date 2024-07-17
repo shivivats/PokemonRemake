@@ -53,6 +53,13 @@ public:
 	int GetPokemonLevel();
 
 	UPPokemonDataAsset* GetPokemonDataAsset();
+
+	/*
+	 * The pokemon in the player's party or box will be created and destroyed as needed
+	 * Their data will be serialized and stored in a file (look at tom looman's final videos on this or just google it)
+	 * This data should be referenced and updated when the player opens the party, the box, or anything that refers to the party pokemon
+	 * This can be stored in the GameInstance or the GameState(?)
+	 */
 	
 public:	
 	// Called every frame
