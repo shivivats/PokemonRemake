@@ -1,4 +1,0 @@
-﻿Name,PokedexNumber,BaseHealth,BaseAttack,BaseDefense,BaseSpeed,Type1,Type2
-Alien,1,39,52,43,65,Fire,None
-Birb,2,40,45,40,56,Normal,Flying
-Birb-H,2,56,45,40,40,Ice,Flying
