@@ -75,3 +75,6 @@ DerivedDataCache/*
 
 # Ignore the Environment Assets
 Content/Orasot_Bundle/*
+
+# Ignore the Pokemon Assets
+Content/Pokemon/Monsters
