@@ -64,6 +64,9 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon")
+	bool bCanBattle;
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

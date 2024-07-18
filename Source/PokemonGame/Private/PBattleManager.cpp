@@ -25,3 +25,8 @@ void APBattleManager::Tick(float DeltaTime)
 
 }
 
+void APBattleManager::BeginBattle()
+{
+	
+}
+

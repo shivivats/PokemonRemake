@@ -10,6 +10,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "PBattleManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "Pokemon/PPokemonBase.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -53,6 +56,7 @@ APokemonGameCharacter::APokemonGameCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
+	// Call a fn on overlap begin
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APokemonGameCharacter::APokemonGameCharacter::BeginComponentOverlap);
 }
 
@@ -66,10 +70,22 @@ void APokemonGameCharacter::BeginComponentOverlap(UPrimitiveComponent* Overlappe
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	// check if we can battle
+	if(bCanBattle)
+	{
+		// check if we overlapped with another pokemon
+		APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor);
+		if(OtherPokemon)
+		{
+			// do stuff to start the battle
+			APBattleManager* BattleManager = Cast<APBattleManager>(UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass()));
+			if(BattleManager)
+			{
+				BattleManager->BeginBattle();
+			}
+			
+		}
+	}
 
-	// check if we overlapped with another pokemon
-
-	// do stuff to start the battle
 }
 
 //////////////////////////////////////////////////////////////////////////
