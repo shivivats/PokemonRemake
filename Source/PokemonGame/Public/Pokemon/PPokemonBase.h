@@ -25,6 +25,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/** General Pokemon Data */
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
 	int PokedexNumber;
 
@@ -46,6 +47,26 @@ protected:
 	// UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
 	// FDataTableRowHandle PokemonSpeciesRowHandle;
 
+	/** Visuals */
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<USkeletalMesh> PokemonMesh;
+
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<UAnimBlueprint> AnimBP;
+
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<UAnimMontage> AttackAnim;
+
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<UAnimMontage> DeathAnim;
+
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<UAnimMontage> HitAnim;
+
+	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
+	TObjectPtr<UAnimMontage> DodgeAnim;
+
+	/** Components */
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Components")
 	UPPokemonAttributeComponent* AttributeComponent;
 

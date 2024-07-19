@@ -17,6 +17,13 @@ APPokemonBase::APPokemonBase()
 	AttributeComponent = CreateDefaultSubobject<UPPokemonAttributeComponent>(TEXT("AttributeComponent"));
 	BattleComponent = CreateDefaultSubobject<UPPokemonBattleComponent>(TEXT("BattleComponent"));
 	AttackComponent = CreateDefaultSubobject<UPPokemonAttackComponent>(TEXT("AttackComponent"));
+
+	if(FPokemonSpeciesDataRow* Row = GetPokemonData())
+	{
+		GetMesh()->SetSkeletalMeshAsset(Row->PokemonMesh);
+		GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		GetMesh()->SetAnimClass(Row->AnimBP->);
+	}
 }
 
 // Called when the game starts or when spawned

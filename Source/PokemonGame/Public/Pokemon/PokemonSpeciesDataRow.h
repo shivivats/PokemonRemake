@@ -62,23 +62,4 @@ public:
 
 	UPROPERTY(EditAnywhere, Category="Stats")
 	int BaseSpeed;
-
-	/** Visuals */
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<USkeletalMesh> PokemonMesh;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<UAnimBlueprint> AnimBP;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<UAnimMontage> AttackAnim;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<UAnimMontage> DeathAnim;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<UAnimMontage> HitAnim;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	TObjectPtr<UAnimMontage> DodgeAnim;
 };
