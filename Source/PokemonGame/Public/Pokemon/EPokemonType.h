@@ -26,6 +26,7 @@ enum class EPokemonType : uint8
     TYPE_FIRE    UMETA(DisplayName = "Fire"),
     TYPE_WATER    UMETA(DisplayName = "Water"),
     TYPE_GRASS    UMETA(DisplayName = "Grass"),
+    TYPE_ICE    UMETA(DisplayName = "Ice"),
     TYPE_ELECTRIC  UMETA(DisplayName = "Electric"),
     TYPE_PSYCHIC UMETA(DisplayName = "Psychic"),
     TYPE_DRAGON   UMETA(DisplayName = "Dragon"),

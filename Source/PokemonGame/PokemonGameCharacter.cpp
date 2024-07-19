@@ -73,12 +73,10 @@ void APokemonGameCharacter::BeginComponentOverlap(UPrimitiveComponent* Overlappe
 	if(bCanBattle)
 	{
 		// check if we overlapped with another pokemon
-		APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor);
-		if(OtherPokemon)
+		if(APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor))
 		{
 			// do stuff to start the battle
-			APBattleManager* BattleManager = Cast<APBattleManager>(UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass()));
-			if(BattleManager)
+			if(APBattleManager* BattleManager = Cast<APBattleManager>(UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass())))
 			{
 				BattleManager->BeginBattle();
 			}

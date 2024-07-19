@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "EPokemonType.h"
 #include "GameFramework/Character.h"
-#include "PPokemonDataAsset.h"
+#include "PokemonSpeciesDataRow.h"
 #include "PPokemonBase.generated.h"
 
 class UPPokemonBattleComponent;
@@ -25,25 +25,34 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
+	int PokedexNumber;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
+	FName PokemonSpeciesName;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
 	int PokemonLevel;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Pokemon|General")
 	float CurrentHeight;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Pokemon|General")
 	float CurrentWeight;
-	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
-	UPPokemonDataAsset* PokemonDataAsset;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Components")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
+	TObjectPtr<UDataTable> PokemonSpeciesDataTable; // assign using bp
+	
+	// UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
+	// FDataTableRowHandle PokemonSpeciesRowHandle;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Components")
 	UPPokemonAttributeComponent* AttributeComponent;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Components")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Components")
 	UPPokemonAttackComponent* AttackComponent;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|Components")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Components")
 	UPPokemonBattleComponent* BattleComponent;
 
 public:
@@ -52,7 +61,7 @@ public:
 
 	int GetPokemonLevel();
 
-	UPPokemonDataAsset* GetPokemonDataAsset();
+	FPokemonSpeciesDataRow* GetPokemonData();
 
 	/*
 	 * The pokemon in the player's party or box will be created and destroyed as needed

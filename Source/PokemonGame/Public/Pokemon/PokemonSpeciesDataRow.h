@@ -4,25 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "EPokemonType.h"
-#include "Engine/DataAsset.h"
-#include "PPokemonDataAsset.generated.h"
+#include "PokemonSpeciesDataRow.generated.h"
 
 /**
  * 
  */
-UCLASS(BlueprintType)
-class POKEMONGAME_API UPPokemonDataAsset : public UDataAsset
+USTRUCT(BlueprintType)
+struct FPokemonSpeciesDataRow : public FTableRowBase
 {
 	GENERATED_BODY()
 
-protected:
+public:
 
 	/** General Species Info */
 	UPROPERTY(EditAnywhere, Category="General")
 	int PokedexNum;
 	
+	 UPROPERTY(EditAnywhere, Category="General")
+	 FName SpeciesName;
+
 	UPROPERTY(EditAnywhere, Category="General")
-	FName SpeciesName;
+	FName DisplayName;
 
 	UPROPERTY(EditAnywhere, Category="General")
 	EPokemonType Type1;
@@ -40,17 +42,13 @@ protected:
 	float Height;
 
 	UPROPERTY(EditAnywhere, Category="General")
-	float Width;
+	float Weight;
 
-	/** Visuals */
-	UPROPERTY(EditAnywhere, Category="Visual")
-	USkeletalMesh* PokemonMesh;
+	UPROPERTY(EditAnywhere, Category="General")
+	FName Ability;
 
-	UPROPERTY(EditAnywhere, Category="Visual")
-	UAnimBlueprint* AnimBP;
-
-	UPROPERTY(EditAnywhere, Category="Visual")
-	UAnimMontage* AttackAnim;
+	UPROPERTY(EditAnywhere, Category="General")
+	FName EvolvesTo;
 
 	/** Stats */
 	UPROPERTY(EditAnywhere, Category="Stats")
@@ -65,18 +63,22 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Stats")
 	int BaseSpeed;
 
-public:
-	int GetPokedexNum() const;
-	FName GetSpeciesName() const;
-	EPokemonType GetType1() const;
-	EPokemonType GetType2() const;
-	int GetHeight() const;
-	int GetWidth() const;
-	USkeletalMesh* GetPokemonMesh() const;
-	int GetBaseHP() const;
-	int GetBaseAttack() const;
-	int GetBaseDefense() const;
-	int GetBaseSpeed() const;
-	FText GetSpeciesText() const;
-	FText GetSpeciesDescription() const;
+	/** Visuals */
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<USkeletalMesh> PokemonMesh;
+
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<UAnimBlueprint> AnimBP;
+
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<UAnimMontage> AttackAnim;
+
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<UAnimMontage> DeathAnim;
+
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<UAnimMontage> HitAnim;
+
+	UPROPERTY(EditAnywhere, Category="Visual")
+	TObjectPtr<UAnimMontage> DodgeAnim;
 };

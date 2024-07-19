@@ -3,10 +3,10 @@
 
 #include "Pokemon/PPokemonBase.h"
 
+#include "Pokemon/PokemonSpeciesDataRow.h"
 #include "Pokemon/PPokemonAttackComponent.h"
 #include "Pokemon/PPokemonAttributeComponent.h"
 #include "Pokemon/PPokemonBattleComponent.h"
-#include "Pokemon/PPokemonDataAsset.h"
 
 // Sets default values
 APPokemonBase::APPokemonBase()
@@ -17,7 +17,6 @@ APPokemonBase::APPokemonBase()
 	AttributeComponent = CreateDefaultSubobject<UPPokemonAttributeComponent>(TEXT("AttributeComponent"));
 	BattleComponent = CreateDefaultSubobject<UPPokemonBattleComponent>(TEXT("BattleComponent"));
 	AttackComponent = CreateDefaultSubobject<UPPokemonAttackComponent>(TEXT("AttackComponent"));
-	
 }
 
 // Called when the game starts or when spawned
@@ -30,8 +29,8 @@ void APPokemonBase::BeginPlay()
 TArray<EPokemonType> APPokemonBase::GetPokemonTypes()
 {
 	TArray<EPokemonType> Types;
-	Types.Add(PokemonDataAsset->GetType1());
-	Types.Add(PokemonDataAsset->GetType2());
+	Types.Add(GetPokemonData()->Type1);
+	Types.Add(GetPokemonData()->Type2);
 	return Types;
 }
 
@@ -40,9 +39,12 @@ int APPokemonBase::GetPokemonLevel()
 	return PokemonLevel;
 }
 
-UPPokemonDataAsset* APPokemonBase::GetPokemonDataAsset()
+FPokemonSpeciesDataRow* APPokemonBase::GetPokemonData()
 {
-	return PokemonDataAsset;
+	// we need to get a struct of pokemon data
+	FPokemonSpeciesDataRow* PokemonSpeciesDataRow = PokemonSpeciesDataTable->FindRow<FPokemonSpeciesDataRow>(PokemonSpeciesName, TEXT("Searching for pokemon data..."));
+	
+	return PokemonSpeciesDataRow;
 }
 
 // Called every frame

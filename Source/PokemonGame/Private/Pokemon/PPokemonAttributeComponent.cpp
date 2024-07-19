@@ -4,7 +4,6 @@
 #include "Pokemon/PPokemonAttributeComponent.h"
 
 #include "Pokemon/PPokemonBase.h"
-#include "Pokemon/PPokemonDataAsset.h"
 
 // Sets default values for this component's properties
 UPPokemonAttributeComponent::UPPokemonAttributeComponent()
@@ -27,17 +26,17 @@ void UPPokemonAttributeComponent::BeginPlay()
 	APPokemonBase* OwnerPokemon = Cast<APPokemonBase>(GetOwner());
 	if(ensure(OwnerPokemon))
 	{
-		BaseHealth = OwnerPokemon->GetPokemonDataAsset()->GetBaseHP();
-		BaseAttack = OwnerPokemon->GetPokemonDataAsset()->GetBaseAttack();
-		BaseDefense = OwnerPokemon->GetPokemonDataAsset()->GetBaseDefense();
-		BaseSpeed = OwnerPokemon->GetPokemonDataAsset()->GetBaseSpeed();
-		
-		int Level = OwnerPokemon->GetPokemonLevel();
-		Health = BaseHealth * Level / 5;
-		MaxHealth = Health;
-		Attack = BaseAttack * Level / 10;
-		Defense = BaseDefense * Level / 10;
-		Speed = BaseSpeed * Level / 10;
+		// BaseHealth = OwnerPokemon->GetPokemonDataAsset()->GetBaseHP();
+		// BaseAttack = OwnerPokemon->GetPokemonDataAsset()->GetBaseAttack();
+		// BaseDefense = OwnerPokemon->GetPokemonDataAsset()->GetBaseDefense();
+		// BaseSpeed = OwnerPokemon->GetPokemonDataAsset()->GetBaseSpeed();
+		//
+		// int Level = OwnerPokemon->GetPokemonLevel();
+		// Health = BaseHealth * Level / 5;
+		// MaxHealth = Health;
+		// Attack = BaseAttack * Level / 10;
+		// Defense = BaseDefense * Level / 10;
+		// Speed = BaseSpeed * Level / 10;
 	}
 }
 
