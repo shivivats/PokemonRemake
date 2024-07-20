@@ -26,34 +26,26 @@ protected:
 	virtual void BeginPlay() override;
 
 	/** General Pokemon Data */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
-	int PokedexNumber;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
+	FDataTableRowHandle PokemonSpeciesRowHandle;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
-	FName PokemonSpeciesName;
+	EPokemonSpeciesName SpeciesName;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|Identifiers")
+	FName DisplayName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Pokemon|General")
 	int PokemonLevel;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Pokemon|General")
-	float CurrentHeight;
+	float Height;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Pokemon|General")
-	float CurrentWeight;
-
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
-	TObjectPtr<UDataTable> PokemonSpeciesDataTable; // assign using bp
-	
-	// UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Pokemon|General")
-	// FDataTableRowHandle PokemonSpeciesRowHandle;
+	float Weight;
 
 	/** Visuals */
-	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
-	TObjectPtr<USkeletalMesh> PokemonMesh;
-
-	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
-	TObjectPtr<UAnimBlueprint> AnimBP;
-
+	// Assign Mesh and AnimBp through the pokemon blueprint itself
 	UPROPERTY(EditAnywhere, Category="Pokemon|Visual")
 	TObjectPtr<UAnimMontage> AttackAnim;
 
@@ -77,7 +69,6 @@ protected:
 	UPPokemonBattleComponent* BattleComponent;
 
 public:
-
 	TArray<EPokemonType> GetPokemonTypes();
 
 	int GetPokemonLevel();
@@ -90,12 +81,11 @@ public:
 	 * This data should be referenced and updated when the player opens the party, the box, or anything that refers to the party pokemon
 	 * This can be stored in the GameInstance or the GameState(?)
 	 */
-	
-public:	
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };
