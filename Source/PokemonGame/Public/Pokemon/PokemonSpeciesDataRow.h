@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EPokemonSpeciesName.h"
 #include "EPokemonType.h"
 #include "PokemonSpeciesDataRow.generated.h"
 
@@ -15,13 +16,12 @@ struct FPokemonSpeciesDataRow : public FTableRowBase
 	GENERATED_BODY()
 
 public:
-
 	/** General Species Info */
 	UPROPERTY(EditAnywhere, Category="General")
 	int PokedexNum;
-	
-	 UPROPERTY(EditAnywhere, Category="General")
-	 FName SpeciesName;
+
+	UPROPERTY(EditAnywhere, Category="General")
+	EPokemonSpeciesName SpeciesName;
 
 	UPROPERTY(EditAnywhere, Category="General")
 	FName DisplayName;
@@ -48,12 +48,12 @@ public:
 	FName Ability;
 
 	UPROPERTY(EditAnywhere, Category="General")
-	FName EvolvesTo;
+	EPokemonSpeciesName EvolvesTo;
 
 	/** Stats */
 	UPROPERTY(EditAnywhere, Category="Stats")
 	int BaseHP;
-	
+
 	UPROPERTY(EditAnywhere, Category="Stats")
 	int BaseAttack;
 
