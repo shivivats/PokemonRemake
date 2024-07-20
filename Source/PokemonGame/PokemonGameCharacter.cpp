@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "PBattleManager.h"
+#include "Characters/PokemonCollectionComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Pokemon/PPokemonBase.h"
 
@@ -23,7 +24,7 @@ APokemonGameCharacter::APokemonGameCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-		
+
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -50,14 +51,19 @@ APokemonGameCharacter::APokemonGameCharacter()
 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
+	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	// Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
 	// Call a fn on overlap begin
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APokemonGameCharacter::APokemonGameCharacter::BeginComponentOverlap);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(
+		this, &APokemonGameCharacter::APokemonGameCharacter::BeginComponentOverlap);
+
+	PokemonCollectionComponent = CreateDefaultSubobject<
+		UPokemonCollectionComponent>(TEXT("PokemonCollectionComponent"));
 }
 
 void APokemonGameCharacter::BeginPlay()
@@ -67,23 +73,23 @@ void APokemonGameCharacter::BeginPlay()
 }
 
 void APokemonGameCharacter::BeginComponentOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                                  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                                                  const FHitResult& SweepResult)
 {
 	// check if we can battle
-	if(bCanBattle)
+	if (bCanBattle)
 	{
 		// check if we overlapped with another pokemon
-		if(APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor))
+		if (APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor))
 		{
 			// do stuff to start the battle
-			if(APBattleManager* BattleManager = Cast<APBattleManager>(UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass())))
+			if (APBattleManager* BattleManager = Cast<APBattleManager>(
+				UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass())))
 			{
 				BattleManager->BeginBattle();
 			}
-			
 		}
 	}
-
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -94,15 +100,16 @@ void APokemonGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
+
 	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -115,7 +122,10 @@ void APokemonGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	}
 	else
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
+		UE_LOG(LogTemplateCharacter, Error,
+		       TEXT(
+			       "'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."
+		       ), *GetNameSafe(this));
 	}
 }
 
@@ -132,7 +142,7 @@ void APokemonGameCharacter::Move(const FInputActionValue& Value)
 
 		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
+
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 

@@ -7,6 +7,7 @@
 #include "Logging/LogMacros.h"
 #include "PokemonGameCharacter.generated.h"
 
+class UPokemonCollectionComponent;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
@@ -27,7 +28,7 @@ class APokemonGameCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
@@ -44,23 +45,24 @@ class APokemonGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Follow camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPokemonCollectionComponent* PokemonCollectionComponent;
+
 public:
 	APokemonGameCharacter();
-	
 
 protected:
-
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
 
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	// To add mapping context
 	virtual void BeginPlay();
 
@@ -74,6 +76,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	UFUNCTION()
-	void BeginComponentOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+	void BeginComponentOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                           UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+	                           const FHitResult& SweepResult);
 };
-
