@@ -10,8 +10,8 @@ UCLASS()
 class POKEMONGAME_API APBattleManager : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	APBattleManager();
 
@@ -19,12 +19,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintImplementableEvent)
 	void BeginBattle();
 
+	UFUNCTION(BlueprintImplementableEvent)
 	void EndBattle();
 
 	/*
@@ -41,5 +43,4 @@ public:
 	 * - the turn end delegates will determine UI changes for PP and such
 	 * - the enemy pokemon will also need to subscribe to the battle end delegate in case its still free afterwards
 	 */
-
 };
