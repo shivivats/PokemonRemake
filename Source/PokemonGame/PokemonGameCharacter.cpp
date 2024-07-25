@@ -58,10 +58,6 @@ APokemonGameCharacter::APokemonGameCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
-	// Call a fn on overlap begin
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(
-		this, &APokemonGameCharacter::APokemonGameCharacter::BeginComponentOverlap);
-
 	PokemonCollectionComponent = CreateDefaultSubobject<
 		UPokemonCollectionComponent>(TEXT("PokemonCollectionComponent"));
 }
@@ -70,26 +66,6 @@ void APokemonGameCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-}
-
-void APokemonGameCharacter::BeginComponentOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                                  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
-                                                  const FHitResult& SweepResult)
-{
-	// check if we can battle
-	if (bCanBattle)
-	{
-		// check if we overlapped with another pokemon
-		if (APPokemonBase* OtherPokemon = Cast<APPokemonBase>(OtherActor))
-		{
-			// do stuff to start the battle
-			if (APBattleManager* BattleManager = Cast<APBattleManager>(
-				UGameplayStatics::GetActorOfClass(this, APBattleManager::StaticClass())))
-			{
-				BattleManager->BeginBattle();
-			}
-		}
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////
