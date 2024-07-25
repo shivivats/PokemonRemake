@@ -23,10 +23,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void BeginBattle();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void BeginBattle(APPokemonBase* OtherPokemon);
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void EndBattle();
 
 	/*
